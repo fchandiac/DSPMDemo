@@ -52,7 +52,11 @@ export default function PanicButtonPage() {
 
       {/* Mapa */}
       <Box sx={{ position: 'relative', width: '100%', flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
-        <MapView latitude={coords?.latitude} longitude={coords?.longitude} />
+        {coords ? (
+          <MapView latitude={coords.latitude} longitude={coords.longitude} />
+        ) : (
+          <MapView />
+        )}
         {geoError && (
           <Typography color="error" sx={{ mt: 2, textAlign: 'center' }}>
             {geoError}
@@ -86,11 +90,21 @@ export default function PanicButtonPage() {
       </Box>
 
       {/* BottomBar */}
-      <BottomNavigation showLabels sx={{ width: '100%', borderTop: '1px solid #eee' }}>
-        <BottomNavigationAction label="Inicio" icon={<HomeIcon />} />
-        <BottomNavigationAction label="Pánico" icon={<PhoneAndroidIcon color="error" />} />
-        <BottomNavigationAction label="Info" icon={<InfoIcon />} />
-      </BottomNavigation>
+      <Box sx={{ width: '100%', maxWidth: 400, margin: '0 auto' }}>
+        <BottomNavigation
+          showLabels
+          sx={{
+            width: '100%',
+            borderTop: '1px solid #eee',
+            bgcolor: '#1976d2', // primary color
+            zIndex: 100,
+          }}
+        >
+          <BottomNavigationAction label="Inicio" icon={<HomeIcon sx={{ color: 'white' }} />} sx={{ color: 'white' }} />
+          <BottomNavigationAction label="Pánico" icon={<PhoneAndroidIcon sx={{ color: 'white' }} />} sx={{ color: 'white' }} />
+          <BottomNavigationAction label="Info" icon={<InfoIcon sx={{ color: 'white' }} />} sx={{ color: 'white' }} />
+        </BottomNavigation>
+      </Box>
     </Box>
   );
 }

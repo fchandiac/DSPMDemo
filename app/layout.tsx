@@ -5,6 +5,7 @@ import { AlertProvider } from "@/context/AlertContext";
 import { UserProvider } from "@/context/UserContext";
 import RootWrapper from "./RootWrapper";
 import '@/app/globals.css';
+import '../public/hide-leaflet-attribution.css';
 
 export const metadata = {
   title: "Aplicación Demo Dirección de Seguridad Pública Municipal",

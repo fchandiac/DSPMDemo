@@ -1,0 +1,44 @@
+{
+  "name": "dspm-demo",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "wdio": "wdio run ./wdio.conf.js",
+    "test:e2e": "DEBUG=true wdio run ./wdio.conf.js --logLevel=debug",
+    "test:e2e:single": "DEBUG=true wdio run ./wdio.conf.js --spec ./test/specs/homePage.e2e.ts --logLevel=debug",
+    "setup:test": "npm install --save-dev @wdio/cli@^8.32.3 @wdio/local-runner@^8.32.3 @wdio/mocha-framework@^8.32.3 @wdio/spec-reporter@^8.32.2 ts-node typescript wdio-chromedriver-service@^8.1.1 chromedriver@^127.0.0 --legacy-peer-deps"
+  },
+  "dependencies": {
+    "@emotion/cache": "11.14.0",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.0",
+    "@mui/icons-material": "6.4.10",
+    "@mui/material": "6.4.10",
+    "@mui/material-nextjs": "6.4.3",
+    "@mui/x-data-grid": "7.28.3",
+    "next": "14.2.15",
+    "next-auth": "5.0.0-beta.25",
+    "react": "18",
+    "react-dom": "18"
+  },
+  "devDependencies": {
+    "@types/node": "20",
+    "@types/react": "18",
+    "@types/react-dom": "18",
+    "@wdio/cli": "^8.32.3",
+    "@wdio/devtools-service": "^8.32.3",
+    "@wdio/local-runner": "^8.32.3",
+    "@wdio/mocha-framework": "^8.32.3",
+    "@wdio/spec-reporter": "^8.32.2",
+    "@wdio/types": "^8.32.2",
+    "chromedriver": "^127.0.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3",
+    "wdio-chromedriver-service": "^8.1.1",
+    "webdriverio": "^8.32.2"
+  }
+}

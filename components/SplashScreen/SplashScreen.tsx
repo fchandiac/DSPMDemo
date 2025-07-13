@@ -162,7 +162,8 @@ export default function SplashScreen({ onComplete, duration = 8000 }: SplashScre
                 },
               }}
             >
-              Una plantilla para proyectos con NextJS, Material UI y NextAuth
+              Esta es una versión de prueba en desarrollo.
+Algunas funciones pueden no estar habilitadas o presentar cambios durante su ajuste final.
             </Typography>
           </Fade>
 
@@ -232,7 +233,7 @@ export default function SplashScreen({ onComplete, duration = 8000 }: SplashScre
                   fontSize: '0.75rem',
                 }}
               >
-                © {new Date().getFullYear()} - Desarrollado con ❤️
+                © {new Date().getFullYear()} - DSPM 2025
               </Typography>
             </Box>
           </Fade>

@@ -5,5 +5,6 @@ export interface User {
     role: 'admin' | 'user' | 'operator';
     createdAt?: string;
     status?: 'activo' | 'inactivo';
-  }
+    pass?: string;
+}
   

@@ -13,7 +13,7 @@ import {
 import PersonIcon from "@mui/icons-material/Person";
 import MenuIcon from "@mui/icons-material/Menu";
 import SideBar from "./SideBar";
-import { useUserContext } from "@/context/UserContext";
+import { useUser } from "@/context/UserContext";
 import UserInfoForm from "@/components/appBar/UserInfoForm";
 import moment from "moment";
 import packageJson from "../../package.json";
@@ -25,7 +25,7 @@ const TopBar: React.FC = () => {
   const [openUserInfoDialog, setOpenUserInfoDialog] = useState(false);
   const [openSideBar, setOpenSideBar] = useState(false);
 
-  const { user, loading } = useUserContext();
+  const { user, loading } = useUser();
 
   const userName = user?.name || "Invitado";
 

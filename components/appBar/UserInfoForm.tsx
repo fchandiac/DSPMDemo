@@ -35,7 +35,7 @@ const UserInfoForm = ({ user }: Props) => {
     const fetchPassword = async () => {
       try {
         const findUser = await getUserById(user.id);
-        const pass = findUser.pass;
+        const pass = findUser?.pass ?? "";
         setActualPassword(pass);
       } catch (err) {
         showAlert("No se pudo obtener la contraseña actual", "error");
@@ -65,9 +65,7 @@ const UserInfoForm = ({ user }: Props) => {
       newPassword,
     });
 
-    if (result?.error) {
-      showAlert(result.error, "error");
-    } else {
+    if (result.success) {
       showAlert("Contraseña actualizada correctamente", "success");
       setNewPassword("");
       setOldPassword("");
@@ -76,6 +74,8 @@ const UserInfoForm = ({ user }: Props) => {
       setTimeout(() => {
         signOut({ callbackUrl: "/" }); // Redirige al login
       }, 1000); // Espera 1 segundo para que el usuario vea el mensaje
+    } else {
+      showAlert("No se pudo actualizar la contraseña", "error");
     }
 
     setLoading(false);

@@ -1,20 +1,22 @@
 "use client";
+import { useEffect, useState } from 'react';
+import dynamic from 'next/dynamic';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import MenuIcon from '@mui/icons-material/Menu';
 import IconButton from '@mui/material/IconButton';
 import Box from '@mui/material/Box';
-// ...existing code...
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import BottomNavigation from '@mui/material/BottomNavigation';
 import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
-import MapView from '@/components/MapView';
-import SOSDialog from '@/components/SOSDialog';
-import { useEffect, useState } from 'react';
+
+// Importar componentes que usan APIs del navegador dinámicamente
+const MapView = dynamic(() => import('@/components/MapView'), { ssr: false });
+const SOSDialog = dynamic(() => import('@/components/SOSDialog'), { ssr: false });
 
 export default function PanicButtonPage() {
   const [coords, setCoords] = useState<{ latitude: number; longitude: number } | null>(null);

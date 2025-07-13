@@ -102,7 +102,7 @@ export default function SplashScreen({ onComplete, duration = 8000 }: SplashScre
             >
               <Image
                 src="/logo.svg"
-                alt="NextJS MUI Auth Starter"
+                alt="Aplicación Demo Dirección de Seguridad Pública Municipal"
                 width={140}
                 height={140}
                 style={{
@@ -134,7 +134,7 @@ export default function SplashScreen({ onComplete, duration = 8000 }: SplashScre
                   },
                 }}
               >
-                NextJS MUI Auth Starter
+                Aplicación Demo Dirección de Seguridad Pública Municipal
               </Typography>
             </Box>
           </Fade>

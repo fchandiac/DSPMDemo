@@ -1,4 +1,4 @@
-# Documentación - NextJS MUI Auth Starter
+# Documentación - Aplicación Demo Dirección de Seguridad Pública Municipal
 
 ## Estructura del Proyecto
 

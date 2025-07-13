@@ -46,7 +46,7 @@ export default function LoginForm() {
       }
 
       showAlert('Inicio de sesión exitoso', 'success');
-      router.push('/dashboard');
+      router.push('/panicButton');
     } catch (error) {
       showAlert('Error al iniciar sesión', 'error');
       console.error('Login error:', error);
@@ -58,10 +58,11 @@ export default function LoginForm() {
   return (
     <Container maxWidth="sm">
       <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography component="h1" variant="h4" gutterBottom>
-          Inicio de Sesión
+        <Typography component="h1" variant="h4" gutterBottom align="center">
+          Aplicación Demo Dirección de Seguridad Pública Municipal
+          <br />
+          <span style={{ fontSize: '1.2rem', fontWeight: 400 }}>Ilustre Municipalidad de Parral</span>
         </Typography>
-        
         <Card sx={{ width: '100%', mt: 2 }}>
           <CardContent>
             <Box component="form" onSubmit={handleSubmit} noValidate>
@@ -69,6 +70,7 @@ export default function LoginForm() {
                 margin="normal"
                 required
                 fullWidth
+                size="small"
                 id="nextjs-mui-auth-starter-email"
                 label="Email"
                 name="email"
@@ -81,6 +83,7 @@ export default function LoginForm() {
                 margin="normal"
                 required
                 fullWidth
+                size="small"
                 name="password"
                 label="Contraseña"
                 type={showPassword ? "text" : "password"}
@@ -118,13 +121,10 @@ export default function LoginForm() {
             </Typography>
             <Box sx={{ mt: 1, bgcolor: 'background.paper', p: 1, borderRadius: 1 }}>
               <Typography variant="body2" component="div">
-                Admin: admin@example.com / admin123
+                Admin: admin@dspm.cl / admin
               </Typography>
               <Typography variant="body2" component="div">
-                Usuario: user@example.com / user123
-              </Typography>
-              <Typography variant="body2" component="div">
-                Operador: operator@example.com / operator123
+                Usuario: test@dspm.cl / test
               </Typography>
             </Box>
           </CardContent>

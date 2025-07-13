@@ -9,7 +9,7 @@ describe('Home Page', () => {
     
     // Verificar que estamos en la página de inicio
     const headingText = await $('h1').getText();
-    expect(headingText).toContain('NextJS MUI Auth Starter');
+    expect(headingText).toContain('Aplicación Demo Dirección de Seguridad Pública Municipal');
     
     // Verificar que el formulario de login está presente
     const emailField = await $('#email');

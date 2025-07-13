@@ -28,14 +28,7 @@ export default function Home() {
       }}
     >
       <Container maxWidth="md">
-        <Box sx={{ textAlign: 'center', mb: 4 }}>
-          <Typography variant="h2" component="h1" gutterBottom>
-            NextJS MUI Auth Starter
-          </Typography>
-          <Typography variant="h5" color="textSecondary" gutterBottom>
-            Una plantilla para proyectos con NextJS, Material UI y NextAuth
-          </Typography>
-        </Box>
+        
         
         <LoginForm />
       </Container>

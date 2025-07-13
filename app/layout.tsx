@@ -7,8 +7,8 @@ import RootWrapper from "./RootWrapper";
 import '@/app/globals.css';
 
 export const metadata = {
-  title: "NextJS MUI Auth Starter",
-  description: "A starter template with NextJS, MUI, and NextAuth.js",
+  title: "Aplicación Demo Dirección de Seguridad Pública Municipal",
+  description: "Sistema para la Ilustre Municipalidad de Parral",
   icons: {
     icon: [
       { url: "/favicon.ico", sizes: "any" },

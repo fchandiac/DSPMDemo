@@ -1,6 +1,6 @@
-# NextJS MUI Auth Starter
+# Aplicación Demo Dirección de Seguridad Pública Municipal
 
-Un proyecto base que integra NextJS, Material UI y NextAuth.js con roles de usuario (admin, user, operator).
+Proyecto base para la Ilustre Municipalidad de Parral, con NextJS, Material UI y NextAuth.js.
 
 ## Características
 

@@ -99,7 +99,7 @@ export default function Header() {
           </IconButton>
           
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            NextJS MUI Auth Starter
+            Aplicación Demo Dirección de Seguridad Pública Municipal
           </Typography>
           
           {session?.user ? (

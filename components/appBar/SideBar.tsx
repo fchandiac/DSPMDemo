@@ -38,7 +38,7 @@ export default function SideBar({ open, toggleDrawer }: SideBarProps) {
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mb: 2 }}>
           <Image 
             src="/logo.svg" 
-            alt="NextJS MUI Auth Starter" 
+            alt="Aplicación Demo Dirección de Seguridad Pública Municipal" 
             width={100} 
             height={100} 
             priority 

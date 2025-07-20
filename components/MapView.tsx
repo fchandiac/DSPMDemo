@@ -1,6 +1,6 @@
 
 // @ts-ignore
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvent } from 'react-leaflet';
 import { useEffect } from 'react';
 function RecenterMap({ lat, lng }: { lat: number; lng: number }) {
   const map = useMap();
@@ -14,9 +14,16 @@ import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import Box from '@mui/material/Box';
 
-export default function MapView({ latitude, longitude }: { latitude?: number; longitude?: number }) {
-  const lat = latitude || -36.15;
-  const lng = longitude || -71.83;
+interface MapViewProps {
+  latitude?: number;
+  longitude?: number;
+  onMapClick?: (lat: number, lng: number) => void;
+  marker?: { lat: number; lng: number } | null;
+}
+
+export default function MapView({ latitude, longitude, onMapClick, marker }: MapViewProps) {
+  const lat = marker?.lat || latitude || -36.15;
+  const lng = marker?.lng || longitude || -71.83;
 
   // Icono de posición del usuario (SVG tipo "pin")
   // Usar el color primary de MUI
@@ -28,23 +35,38 @@ export default function MapView({ latitude, longitude }: { latitude?: number; lo
     iconAnchor: [20, 40],
   });
 
+  // Componente para manejar el click en el mapa
+  function MapClickHandler() {
+    useMapEvent('click', (e) => {
+      if (onMapClick) {
+        onMapClick(e.latlng.lat, e.latlng.lng);
+      }
+    });
+    return null;
+  }
+
   return (
     <Box sx={{ width: '100%', height: '100%', position: 'relative', zIndex: 1 }}>
       {/* @ts-ignore: React-Leaflet types may not match current React version */}
       <MapContainer center={[lat, lng]} zoom={15} style={{ width: '100%', height: '100%' }} className="hide-leaflet-attribution">
         <RecenterMap lat={lat} lng={lng} />
+        {onMapClick && <MapClickHandler />}
         {/* @ts-ignore: React-Leaflet types may not match current React version */}
         <TileLayer
           // @ts-ignore
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {/* @ts-ignore: React-Leaflet types may not match current React version */}
-        <Marker position={[lat, lng]} icon={userIcon}>
-          <Popup>
-            Tu ubicación
-          </Popup>
-        </Marker>
+        {/* Mostrar marcador personalizado si marker está presente, si no, mostrar el de usuario */}
+        {marker ? (
+          <Marker position={[marker.lat, marker.lng]} icon={userIcon}>
+            <Popup>Ubicación seleccionada</Popup>
+          </Marker>
+        ) : (
+          <Marker position={[lat, lng]} icon={userIcon}>
+            <Popup>Tu ubicación</Popup>
+          </Marker>
+        )}
       </MapContainer>
     </Box>
   );

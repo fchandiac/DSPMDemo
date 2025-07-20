@@ -8,7 +8,8 @@ import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
 import PanicSideBar from '@/components/panic/PanicSideBar';
-import MapSelectPoint from '@/components/MapSelectPoint';
+
+const MapSelectPoint = dynamic(() => import('@/components/MapSelectPoint'), { ssr: false });
 
 const steps = [
   "¿Qué es una alerta?",

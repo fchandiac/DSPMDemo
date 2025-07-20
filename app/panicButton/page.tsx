@@ -13,6 +13,7 @@ import BottomNavigationAction from '@mui/material/BottomNavigationAction';
 import PhoneAndroidIcon from '@mui/icons-material/PhoneAndroid';
 import HomeIcon from '@mui/icons-material/Home';
 import InfoIcon from '@mui/icons-material/Info';
+import PanicSideBar from '@/components/panic/PanicSideBar';
 
 // Importar componentes que usan APIs del navegador dinámicamente
 const MapView = dynamic(() => import('@/components/MapView'), { ssr: false });
@@ -22,9 +23,9 @@ export default function PanicButtonPage() {
   const [coords, setCoords] = useState<{ latitude: number; longitude: number } | null>(null);
   const [geoError, setGeoError] = useState<string | null>(null);
   const [sosOpen, setSosOpen] = useState(false);
+  const [sideBarOpen, setSideBarOpen] = useState(false);
 
   useEffect(() => {
-    // Solicitar permisos de geolocalización
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (pos) => setCoords({ latitude: pos.coords.latitude, longitude: pos.coords.longitude }),
@@ -34,17 +35,10 @@ export default function PanicButtonPage() {
     } else {
       setGeoError('Geolocalización no soportada en este dispositivo.');
     }
-
-    // Solicitar permisos de micrófono
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
       navigator.mediaDevices.getUserMedia({ audio: true })
-        .then(() => {
-          // Permiso concedido
-        })
-        .catch(() => {
-          // Permiso denegado
-          // Puedes mostrar un mensaje si lo deseas
-        });
+        .then(() => {})
+        .catch(() => {});
     }
   }, []);
 
@@ -66,12 +60,12 @@ export default function PanicButtonPage() {
           <Typography variant="h6" component="div" sx={{ fontWeight: 700 }}>
             dspmDemo
           </Typography>
-          {/* Título eliminado, solo dspmDemo y menú */}
-          <IconButton edge="end" color="inherit" aria-label="menu">
+          <IconButton edge="end" color="inherit" aria-label="menu" onClick={() => setSideBarOpen(true)}>
             <MenuIcon />
           </IconButton>
         </Toolbar>
       </AppBar>
+      <PanicSideBar open={sideBarOpen} toggleDrawer={setSideBarOpen} />
 
       {/* Mapa */}
       <Box sx={{ position: 'relative', width: '100%', flexGrow: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>

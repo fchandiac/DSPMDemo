@@ -54,11 +54,11 @@ const PanicSideBar: React.FC<PanicSideBarProps> = ({ open, toggleDrawer }) => {
             </MenuItem>
             <MenuItem
               onClick={() => {
-                router.push("/panicButton/denuncia");
+                router.push("/panicButton/reports");
                 toggleDrawer(false);
               }}
             >
-              Denuncia
+              Report
             </MenuItem>
             <MenuItem
               onClick={() => {

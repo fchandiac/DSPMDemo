@@ -58,7 +58,7 @@ export default function AlertaPage() {
   const handleBack = () => setActiveStep((prev) => prev - 1);
 
   return (
-    <Box sx={{ minHeight: '100dvh', height: '100dvh', display: 'flex', flexDirection: 'column', maxWidth: 500, width: '100%', margin: '0 auto', boxShadow: 2, bgcolor: '#fafafa' }}>
+    <Box sx={{ minHeight: '100dvh', height: '100dvh', width: '100vw', display: 'flex', flexDirection: 'column', margin: 0, padding: 0, boxShadow: 2, bgcolor: '#fafafa' }}>
       <AlertaInfoDialog open={infoDialogOpen} onClose={() => setInfoDialogOpen(false)} />
       <PanicSideBar open={sideBarOpen} toggleDrawer={setSideBarOpen} />
       {/* TopBar */}

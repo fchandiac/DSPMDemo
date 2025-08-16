@@ -44,14 +44,16 @@ export default function PanicButtonPage() {
 
   return (
     <Box sx={{
-      height: '100vh',
+      minHeight: '100dvh',
+      height: '100dvh',
+      width: '100vw',
       display: 'flex',
       flexDirection: 'column',
       justifyContent: 'space-between',
       alignItems: 'center',
       bgcolor: '#fafafa',
-      maxWidth: 400,
-      margin: '0 auto',
+      margin: 0,
+      padding: 0,
       boxShadow: 2,
     }}>
       {/* TopBar */}
@@ -81,8 +83,8 @@ export default function PanicButtonPage() {
         )}
       </Box>
 
-      {/* Botón de pánico fijo en el extremo inferior */}
-      <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'fixed', bottom: 70, left: 0, zIndex: 10 }}>
+  {/* Botón de pánico fijo en el extremo inferior */}
+  <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', position: 'fixed', bottom: 110, left: 0, zIndex: 10 }}>
         <IconButton
           color="error"
           sx={{

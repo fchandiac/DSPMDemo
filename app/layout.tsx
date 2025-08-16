@@ -4,6 +4,7 @@ import AuthProvider from "@/components/auth/AuthProvider";
 import { AlertProvider } from "@/context/AlertContext";
 import { UserProvider } from "@/context/UserContext";
 import RootWrapper from "./RootWrapper";
+import Footer from "@/components/layout/Footer";
 import '@/app/globals.css';
 import '../public/hide-leaflet-attribution.css';
 
@@ -30,14 +31,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="es">
-      <body>
+    <html lang="es" style={{ height: '100%', width: '100%' }}>
+      <body style={{ minHeight: '100vh', minWidth: '100vw', margin: 0, padding: 0, display: 'flex', flexDirection: 'column' }}>
         <AuthProvider>
           <MuiProvider>
             <AlertProvider>
               <UserProvider>
                 <RootWrapper>
                   {children}
+                  <Footer />
                 </RootWrapper>
               </UserProvider>
             </AlertProvider>

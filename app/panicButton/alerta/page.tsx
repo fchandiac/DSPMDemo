@@ -12,7 +12,17 @@ import PanicSideBar from '@/components/panic/PanicSideBar';
 
 const MapSelectPoint = dynamic(() => import('@/components/MapSelectPoint'), { ssr: false });
 
+const categories = [
+  { label: "Robo a persona", color: "#d32f2f" },
+  { label: "Robo a casa", color: "#1976d2" },
+  { label: "Individuo sospechoso", color: "#ffa000" },
+  { label: "Urgencia médica", color: "#388e3c" },
+  { label: "Accidente vehicular", color: "#7b1fa2" },
+];
+
 const steps = [
+  "Categoría",
+  "Dirección",
   "Ubicación",
   "Descripción",
   "Adjuntar imagen",
@@ -21,6 +31,8 @@ const steps = [
 
 export default function AlertaPage() {
   const [activeStep, setActiveStep] = useState(0);
+  const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [direccion, setDireccion] = useState("");
   const [ubicacion, setUbicacion] = useState("");
   const ubicacionRef = useRef<HTMLInputElement>(null);
   const [descripcion, setDescripcion] = useState("");
@@ -88,30 +100,77 @@ export default function AlertaPage() {
         </Stepper>
         <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', minHeight: 0, overflow: 'auto' }}>
           {activeStep === 0 && (
+            <Box sx={{ mt: 3, width: '100%', height: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+              <Typography variant="h5" color="primary" sx={{ mb: 2 }}>
+                Categoría
+              </Typography>
+              <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
+                Selecciona la categoría que mejor describe la alerta:
+              </Typography>
+              <Box sx={{ display: 'flex', gap: 3, flexWrap: 'wrap', justifyContent: 'center', mb: 3 }}>
+                {categories.map(cat => (
+                  <Box key={cat.label} sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+                    <IconButton
+                      size="large"
+                      onClick={() => setSelectedCategory(cat.label)}
+                      sx={{
+                        bgcolor: selectedCategory === cat.label ? cat.color : '#eee',
+                        color: selectedCategory === cat.label ? 'white' : 'black',
+                        border: selectedCategory === cat.label ? `2px solid ${cat.color}` : '2px solid #ccc',
+                        mb: 1,
+                        width: 64,
+                        height: 64,
+                        transition: 'all 0.2s',
+                      }}
+                    >
+                      <InfoIcon sx={{ fontSize: 36 }} />
+                    </IconButton>
+                    <Typography sx={{ fontWeight: selectedCategory === cat.label ? 700 : 400, color: selectedCategory === cat.label ? cat.color : 'inherit', fontSize: 14 }}>
+                      {cat.label}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+              {selectedCategory && (
+                <Typography variant="subtitle1" color="primary" sx={{ mb: 2, fontWeight: 700 }}>
+                  Seleccionado: {selectedCategory}
+                </Typography>
+              )}
+            </Box>
+          )}
+          {activeStep === 1 && (
             <Box sx={{ mt: 3 }}>
               <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
-                Indique la ubicación del incidente. Puede ser una intersección, una dirección con calle y número, o una referencia cercana.
+                Indique la dirección del incidente. Puede ser una intersección, una dirección con calle y número, o una referencia cercana.
               </Typography>
               <TextField
-                label="Ubicación (ej: Calle 123 y Av. Principal, o referencia)"
+                label="Dirección (ej: Calle 123 y Av. Principal, o referencia)"
                 multiline
                 rows={2}
                 fullWidth
-                value={ubicacion}
-                onChange={e => setUbicacion(e.target.value)}
+                value={direccion}
+                onChange={e => setDireccion(e.target.value)}
                 sx={{ mb: 1 }}
-                inputRef={ubicacionRef}
                 autoFocus
               />
+            </Box>
+          )}
+          {activeStep === 2 && (
+            <Box sx={{ mt: 3 }}>
               <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
-                También puede utilizar el mapa de abajo: presione en el mapa para definir la ubicación exacta.
+                Seleccione la ubicación exacta en el mapa.
               </Typography>
               <Box sx={{ mt: 2 }}>
                 <MapSelectPoint onSelect={handleMapClick} marker={mapPoint} />
               </Box>
+              {mapPoint && (
+                <Typography variant="caption" sx={{ mt: 2, bgcolor: 'white', px: 1, borderRadius: 1 }}>
+                  Ubicación seleccionada: {mapPoint.lat.toFixed(5)}, {mapPoint.lng.toFixed(5)}
+                </Typography>
+              )}
             </Box>
           )}
-          {activeStep === 1 && (
+          {activeStep === 3 && (
             <Box sx={{ mt: 3 }}>
               <Typography variant="subtitle1" gutterBottom>Describe la alerta</Typography>
               <TextField
@@ -122,6 +181,86 @@ export default function AlertaPage() {
                 value={descripcion}
                 onChange={e => setDescripcion(e.target.value)}
               />
+            </Box>
+          )}
+          {activeStep === 4 && (
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="subtitle1" gutterBottom>
+                Adjunta una o varias imágenes (opcional)
+              </Typography>
+              <Button
+                variant="contained"
+                component="label"
+                startIcon={<AddPhotoAlternateIcon />} 
+                sx={{ mb: 2 }}
+              >
+                Subir imágenes
+                <input
+                  type="file"
+                  accept="image/*"
+                  multiple
+                  hidden
+                  onChange={handleImageChange}
+                />
+              </Button>
+              <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
+                {imagenes.map((img, idx) => (
+                  <Box key={idx} sx={{ width: 60, height: 60, border: '1px solid #ccc', borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
+                    <img
+                      src={URL.createObjectURL(img)}
+                      alt={`miniatura-${idx}`}
+                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                    />
+                  </Box>
+                ))}
+              </Box>
+            </Box>
+          )}
+          {activeStep === 5 && (
+            <Box sx={{ mt: 3 }}>
+              <Typography variant="h6" gutterBottom color="primary">
+                Resumen de la alerta
+              </Typography>
+              {selectedCategory && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="subtitle2" color="textSecondary">Categoría:</Typography>
+                  <Typography variant="body1">{selectedCategory}</Typography>
+                </Box>
+              )}
+              {direccion && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="subtitle2" color="textSecondary">Dirección:</Typography>
+                  <Typography variant="body1">{direccion}</Typography>
+                </Box>
+              )}
+              {mapPoint && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="subtitle2" color="textSecondary">Ubicación seleccionada:</Typography>
+                  <Typography variant="body2">Lat: {mapPoint.lat.toFixed(5)}, Lng: {mapPoint.lng.toFixed(5)}</Typography>
+                </Box>
+              )}
+              {descripcion && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="subtitle2" color="textSecondary">Descripción:</Typography>
+                  <Typography variant="body1">{descripcion}</Typography>
+                </Box>
+              )}
+              {imagenes.length > 0 && (
+                <Box sx={{ mb: 2 }}>
+                  <Typography variant="subtitle2" color="textSecondary">Imágenes adjuntas:</Typography>
+                  <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mt: 1 }}>
+                    {imagenes.map((img, idx) => (
+                      <Box key={idx} sx={{ width: 60, height: 60, border: '1px solid #ccc', borderRadius: 2, overflow: 'hidden', position: 'relative' }}>
+                        <img
+                          src={URL.createObjectURL(img)}
+                          alt={`miniatura-resumen-${idx}`}
+                          style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                        />
+                      </Box>
+                    ))}
+                  </Box>
+                </Box>
+              )}
             </Box>
           )}
           {activeStep === 2 && (
@@ -235,18 +374,7 @@ export default function AlertaPage() {
           />
         </Box>
       </Box>
-      {/* Mapa en la mitad inferior */}
-      <Box sx={{ flex: 1, minHeight: '50vh', borderTop: '1px solid #eee', position: 'relative' }}>
-        <MapSelectPoint
-          marker={mapPoint}
-          onSelect={handleMapClick}
-        />
-        {mapPoint && (
-          <Typography variant="caption" sx={{ position: 'absolute', bottom: 8, left: 8, bgcolor: 'white', px: 1, borderRadius: 1 }}>
-            Ubicación seleccionada: {mapPoint.lat.toFixed(5)}, {mapPoint.lng.toFixed(5)}
-          </Typography>
-        )}
-      </Box>
+  {/* El mapa solo se muestra en el paso de ubicación */}
       {/* BottomBar */}
       <Box sx={{ width: '100%', maxWidth: 600, margin: '0 auto', height: 48, bgcolor: '#1976d2', borderTop: '1px solid #eee' }} />
     </Box>

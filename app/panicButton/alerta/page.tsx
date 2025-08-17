@@ -156,11 +156,11 @@ export default function AlertaPage() {
             </Box>
           )}
           {activeStep === 2 && (
-            <Box sx={{ mt: 3 }}>
+            <Box sx={{ mt: 3, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
               <Typography variant="body2" color="textSecondary" sx={{ mb: 2 }}>
                 Seleccione la ubicación exacta en el mapa.
               </Typography>
-              <Box sx={{ mt: 2 }}>
+              <Box sx={{ mt: 2, width: '100%', maxWidth: 600, minHeight: 400, height: '50vh', borderRadius: 2, overflow: 'hidden', boxShadow: 2 }}>
                 <MapSelectPoint onSelect={handleMapClick} marker={mapPoint} />
               </Box>
               {mapPoint && (
